@@ -1,0 +1,40 @@
+Simulator Profile
+
+number_of_threads:					8
+
+BATS_code_type:					protograph
+number_of_input_symbols:			250
+number_of_intermediate_symbols:	    400
+batch_size:							8
+base_field:							256
+max_number_of_inactivations:		0
+num_effective_degrees:				1
+effective_degrees:					5 
+degree_distribution:				1.0
+precode_file:						./LDPC_matrix/Precode_PCM_150X400.mat
+precode_rank_option:					0
+batch_profile:						./batch_profile/batch_profile_design_example_1.txt
+
+network_length:                     3
+erasure_probability:                0.1 0.1 0.1
+n_start:                            44
+n_step:                             1
+n_end:                              60
+
+
+
+************************************************************* Description *************************************************************
+BATS_code_type:						protograph or random. If protograph, the batch profile is needed. If random, use num_effective_degrees, effective_degrees, and degree_distribution to specify the degree distribution
+number_of_input_symbols:				the number of pure information symbols
+number_of_intermediate_symbols:		the number of symbols after prcoding. If it equals number_of_input_symbols, the simulator will use BATS codes without a precode
+batch_size:								the value of M
+base_field:								the order of the finite field, e.g., 2, 4, 8, 16, 32, 64, 128, 256
+max_number_of_inactivations:			the maximum number of inactive symbols in inactivation decoding. If it is set to 0, only perform BP decoding; Otherwise, perform the inactivation decoding with the constraint on the complexity
+num_effective_degrees:					set this parameter to 1 if BATS_code_type = protograph; otherwise, this is the number of non-zero degrees in the degree distribution
+effective_degrees:						set this parameter to an arbitrary value if BATS_code_type = protograph; otherwise, this is the vector of the non-zero degrees, e.g., 12 15 19 25 30 40 (the number should match num_effective_degrees)
+degree_distribution:						set this parameter to an arbitrary value if BATS_code_type = protograph; otherwise, this is the vector of the ratio of the non-zero degrees, e.g., 0.3 0.2 0.1 0.2 0.1 0.1 (the number should match num_effective_degrees)
+precode_file:							the file name of the LDPC precode. Since the code is not long, here the file is a full matrix file (not in the sparse matrix form)
+precode_rank_option:					0: all non-zero elements of the parity-check matrix (PCM) are 1 (use 0/1 precode); 1: all non-zero elements of the PCM are randomly chosen from F_q\{0}; 2:all non-zero elements of the PCM are randomly chosen from F_q\{0} such that the PCM is full rank
+batch_profile:							if BATS_code_type = random, ignore this parameter; otherwise, this is the file name of the batch profile, which describes the connection of each batch. The connections are recorded by "cell", each element in the cell specifies the connection of a batch
+network_length:                     the length of linenetwork. If this parameter = i, indicating that the line network has i links and i+1 nodes
+erasure_probability:                the length-network_length vector of erasure probabilities on the links
